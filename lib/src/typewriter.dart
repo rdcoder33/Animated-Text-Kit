@@ -133,7 +133,7 @@ class TypewriterAnimatedTextKit extends AnimatedTextKit {
           pause: pause,
           displayFullTextOnTap: displayFullTextOnTap,
           stopPauseOnTap: stopPauseOnTap,
-          onTap: onTap,
+          // onTap: onTap,
           onNext: onNext,
           onNextBeforePause: onNextBeforePause,
           onFinished: onFinished,

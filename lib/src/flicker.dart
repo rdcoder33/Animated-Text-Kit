@@ -68,7 +68,7 @@ class FlickerAnimatedTextKit extends AnimatedTextKit {
           key: key,
           animatedTexts:
               _animatedTexts(text, textAlign, textStyle, speed, entryEnd),
-          onTap: onTap,
+          // onTap: onTap,
           onNext: onNext,
           onNextBeforePause: onNextBeforePause,
           onFinished: onFinished,
