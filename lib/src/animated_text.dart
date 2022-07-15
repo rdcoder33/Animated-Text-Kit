@@ -43,11 +43,14 @@ abstract class AnimatedText {
 
   /// Utility method to create a styled [Text] widget using the [textAlign] and
   /// [textStyle], but you can specify the [data].
-  Widget textWidget(String data) => Text(
-        data,
-        textAlign: textAlign,
-        style: textStyle,
-      );
+  Widget textWidget(String data) => FittedBox(
+    fit: BoxFit.contain,
+    child: Text(
+          data,
+          textAlign: textAlign,
+          style: textStyle,
+        ),
+  );
 
   /// Widget showing the complete text (when animation is complete or paused).
   /// By default, it shows a Text widget, but this may be overridden.
