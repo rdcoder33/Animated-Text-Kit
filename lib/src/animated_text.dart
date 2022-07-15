@@ -78,7 +78,7 @@ class AnimatedTextKit extends StatefulWidget {
   final bool stopPauseOnTap;
 
   /// Adds the onTap [VoidCallback] to the animated widget.
-  final VoidCallback? onTap;
+//   final VoidCallback? onTap;
 
   /// Adds the onFinished [VoidCallback] to the animated widget.
   ///
@@ -117,7 +117,7 @@ class AnimatedTextKit extends StatefulWidget {
     this.pause = const Duration(milliseconds: 1000),
     this.displayFullTextOnTap = false,
     this.stopPauseOnTap = false,
-    this.onTap,
+//     this.onTap,
     this.onNext,
     this.onNextBeforePause,
     this.onFinished,
@@ -164,16 +164,24 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
   @override
   Widget build(BuildContext context) {
     final completeText = _currentAnimatedText.completeText(context);
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: _onTap,
-      child: _isCurrentlyPausing || !_controller.isAnimating
+//     return GestureDetector(
+//       behavior: HitTestBehavior.opaque,
+//       onTap: _onTap,
+//       child: _isCurrentlyPausing || !_controller.isAnimating
+//           ? completeText
+//           : AnimatedBuilder(
+//               animation: _controller,
+//               builder: _currentAnimatedText.animatedBuilder,
+//               child: completeText,
+//             ),
+//     );
+    return   _isCurrentlyPausing || !_controller.isAnimating
           ? completeText
           : AnimatedBuilder(
               animation: _controller,
               builder: _currentAnimatedText.animatedBuilder,
               child: completeText,
-            ),
+            
     );
   }
 
@@ -273,6 +281,6 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
       }
     }
 
-    widget.onTap?.call();
+//     widget.onTap?.call();
   }
 }
