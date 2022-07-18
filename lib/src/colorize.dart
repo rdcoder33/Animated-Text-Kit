@@ -92,12 +92,15 @@ class ColorizeAnimatedText extends AnimatedText {
       Rect.fromLTWH(0.0, 0.0, _colorShifter.value, 0.0),
     );
 
-    return DefaultTextStyle.merge(
-      style: textStyle,
-      child: Text(
-        text,
-        style: TextStyle(foreground: Paint()..shader = linearGradient),
-        textAlign: textAlign,
+    return FittedBox(
+      
+      child: DefaultTextStyle.merge(
+        style: textStyle,
+        child: Text(
+          text,
+          style: TextStyle(foreground: Paint()..shader = linearGradient),
+          textAlign: textAlign,
+        ),
       ),
     );
   }
