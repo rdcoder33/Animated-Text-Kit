@@ -91,19 +91,25 @@ class TypewriterAnimatedText extends AnimatedText {
       visibleString = textCharacters.take(typewriterValue).toString();
     }
     
-    return RichText(
-      text: TextSpan(
-        children: [
-          TextSpan(text: "$visibleString" + ' ' * (textLen - visibleString.length)),
-          TextSpan(
-            text: cursor,
-            style:
-                showCursor ? null : const TextStyle(color: Colors.transparent),
-          )
-        ],
-        style: DefaultTextStyle.of(context).style.merge(textStyle),
+    return  SizedBox.expand(
+
+      child: FittedBox(
+        fit: BoxFit.contain,
+        child: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(text: '$visibleString' + ' ' * (textLen - visibleString.length)),
+              TextSpan(
+                text: cursor,
+                style:
+                    showCursor ? null : const TextStyle(color: Colors.transparent),
+              )
+            ],
+            style: DefaultTextStyle.of(context).style.merge(textStyle),
+          ),
+          textAlign: textAlign,
+        ),
       ),
-      textAlign: textAlign,
     );
   }
 }
