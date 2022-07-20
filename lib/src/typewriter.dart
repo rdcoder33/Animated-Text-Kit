@@ -94,22 +94,27 @@ class TypewriterAnimatedText extends AnimatedText {
     return SizedBox.expand(
       child: FittedBox(
         fit: BoxFit.contain,
-        child: RichText(
-          text: TextSpan(
-            children: [
-              TextSpan(text: visibleString),
-              TextSpan(
-                text: cursor,
-                style: showCursor
-                    ? null
-                    : const TextStyle(color: Colors.transparent),
+        child: Stack(
+          children: [
+            Text(text + cursor),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(text: visibleString),
+                  TextSpan(
+                    text: cursor,
+                    style: showCursor
+                        ? null
+                        : const TextStyle(color: Colors.transparent),
+                  ),
+                  // if(showCursor)
+                  //   TextSpan(text: ' ' * (text.length - visibleString.length)),
+                ],
+                style: DefaultTextStyle.of(context).style.merge(textStyle),
               ),
-              if(showCursor)
-                TextSpan(text: ' ' * (textLen - visibleString.length)),
-            ],
-            style: DefaultTextStyle.of(context).style.merge(textStyle),
-          ),
-          textAlign: textAlign,
+              textAlign: textAlign,
+            ),
+          ],
         ),
       ),
     );
