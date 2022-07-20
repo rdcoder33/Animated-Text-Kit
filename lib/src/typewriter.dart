@@ -52,9 +52,9 @@ class TypewriterAnimatedText extends AnimatedText {
 
   @override
   Widget completeText(BuildContext context) => SizedBox.expand(
-    child: FittedBox(
-      fit: BoxFit.contain,
-      child: RichText(
+        child: FittedBox(
+          fit: BoxFit.contain,
+          child: RichText(
             text: TextSpan(
               children: [
                 TextSpan(text: text),
@@ -67,8 +67,8 @@ class TypewriterAnimatedText extends AnimatedText {
             ),
             textAlign: textAlign,
           ),
-    ),
-  );
+        ),
+      );
 
   /// Widget showing partial text
   @override
@@ -90,20 +90,22 @@ class TypewriterAnimatedText extends AnimatedText {
     } else {
       visibleString = textCharacters.take(typewriterValue).toString();
     }
-    
-    return  SizedBox.expand(
 
+    return SizedBox.expand(
       child: FittedBox(
         fit: BoxFit.contain,
         child: RichText(
           text: TextSpan(
             children: [
-              TextSpan(text: '$visibleString' + ' ' * (textLen - visibleString.length)),
+              TextSpan(text: visibleString),
               TextSpan(
                 text: cursor,
-                style:
-                    showCursor ? null : const TextStyle(color: Colors.transparent),
-              )
+                style: showCursor
+                    ? null
+                    : const TextStyle(color: Colors.transparent),
+              ),
+              if(showCursor)
+                TextSpan(text: ' ' * (textLen - visibleString.length)),
             ],
             style: DefaultTextStyle.of(context).style.merge(textStyle),
           ),
