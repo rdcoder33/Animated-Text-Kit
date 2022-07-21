@@ -46,12 +46,13 @@ class WavyAnimatedText extends AnimatedText {
         ),
         child: SizedBox.expand(
           child: FittedBox(
+            fit: BoxFit.contain,
             child: Text(
               text,
               style: defaultTextStyle
                   .merge(textStyle)
                   .merge(TextStyle(color: Colors.transparent)),
-              textScaleFactor: scaleFactor,
+              textScaleFactor: 20,
             ),
           ),
         ),
