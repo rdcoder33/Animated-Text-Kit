@@ -162,6 +162,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
     _initAnimation();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
           _controller.addListener(() {
+            print("from text_kit, setstate inside initstate");
             setState(() {
               // Rebuild the widget at each frame to update the "progress" label.
             });
@@ -190,6 +191,8 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 //               child: completeText,
 //             ),
 //     );
+    print("from text_kit: widget rebuilt");
+    setControllerValue(widget.animationValue);
     return _isCurrentlyPausing || !_controller.isAnimating
         ? completeText
         : AnimatedBuilder(
@@ -241,7 +244,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
       vsync: this,
     );
     _currentAnimatedText.initAnimation(_controller);
-    setControllerValue(widget.animationValue);
+
     _controller.addStatusListener(_animationEndCallback);
     // ..forward();
   }
