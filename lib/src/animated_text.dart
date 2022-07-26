@@ -44,15 +44,15 @@ abstract class AnimatedText {
   /// Utility method to create a styled [Text] widget using the [textAlign] and
   /// [textStyle], but you can specify the [data].
   Widget textWidget(String data) => SizedBox.expand(
-    child: FittedBox(
-      fit: BoxFit.contain,
-      child: Text(
+        child: FittedBox(
+          fit: BoxFit.contain,
+          child: Text(
             data,
             textAlign: textAlign,
             style: textStyle,
           ),
-    ),
-  );
+        ),
+      );
 
   /// Widget showing the complete text (when animation is complete or paused).
   /// By default, it shows a Text widget, but this may be overridden.
@@ -116,20 +116,23 @@ class AnimatedTextKit extends StatefulWidget {
   /// By default it is set to 3
   final int totalRepeatCount;
 
-  const AnimatedTextKit({
-    Key? key,
-    required this.animatedTexts,
-    this.pause = const Duration(milliseconds: 1000),
-    this.displayFullTextOnTap = false,
-    this.stopPauseOnTap = false,
+  final animationValue;
+
+  const AnimatedTextKit(
+      {Key? key,
+      required this.animatedTexts,
+      this.pause = const Duration(milliseconds: 1000),
+      this.displayFullTextOnTap = false,
+      this.stopPauseOnTap = false,
 //     this.onTap,
-    this.onNext,
-    this.onNextBeforePause,
-    this.onFinished,
-    this.isRepeatingAnimation = true,
-    this.totalRepeatCount = 3,
-    this.repeatForever = false,
-  })  : assert(animatedTexts.length > 0),
+      this.onNext,
+      this.onNextBeforePause,
+      this.onFinished,
+      this.isRepeatingAnimation = true,
+      this.totalRepeatCount = 3,
+      this.repeatForever = false,
+      this.animationValue})
+      : assert(animatedTexts.length > 0),
         assert(!isRepeatingAnimation || totalRepeatCount > 0 || repeatForever),
         assert(null == onFinished || !repeatForever),
         super(key: key);
@@ -157,6 +160,13 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
   void initState() {
     super.initState();
     _initAnimation();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+          _controller.addListener(() {
+            setState(() {
+              // Rebuild the widget at each frame to update the "progress" label.
+            });
+          });
+        }));
   }
 
   @override
@@ -180,14 +190,13 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 //               child: completeText,
 //             ),
 //     );
-    return   _isCurrentlyPausing || !_controller.isAnimating
-          ? completeText
-          : AnimatedBuilder(
-              animation: _controller,
-              builder: _currentAnimatedText.animatedBuilder,
-              child: completeText,
-            
-    );
+    return _isCurrentlyPausing || !_controller.isAnimating
+        ? completeText
+        : AnimatedBuilder(
+            animation: _controller,
+            builder: _currentAnimatedText.animatedBuilder,
+            child: completeText,
+          );
   }
 
   bool get _isLast => _index == widget.animatedTexts.length - 1;
@@ -231,12 +240,14 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
       duration: _currentAnimatedText.duration,
       vsync: this,
     );
-
     _currentAnimatedText.initAnimation(_controller);
+    setControllerValue(widget.animationValue);
+    _controller.addStatusListener(_animationEndCallback);
+    // ..forward();
+  }
 
-    _controller
-      ..addStatusListener(_animationEndCallback)
-      ..forward();
+  void setControllerValue(double value) {
+    _controller.value = value;
   }
 
   void _setPause() {
