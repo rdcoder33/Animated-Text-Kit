@@ -193,6 +193,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 //     );
     print("from text_kit: widget rebuilt");
     setControllerValue(widget.animationValue);
+    print(_controller.value);
     return _isCurrentlyPausing || !_controller.isAnimating
         ? completeText
         : AnimatedBuilder(
