@@ -162,7 +162,6 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
     _initAnimation();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
           _controller.addListener(() {
-            print("from text_kit, setstate inside initstate");
             setState(() {
               // Rebuild the widget at each frame to update the "progress" label.
             });
@@ -191,16 +190,14 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 //               child: completeText,
 //             ),
 //     );
-    print("from text_kit: widget rebuilt");
+
     setControllerValue(widget.animationValue);
-    print(_controller.value);
-    return _isCurrentlyPausing || !_controller.isAnimating
-        ? completeText
-        : AnimatedBuilder(
-            animation: _controller,
-            builder: _currentAnimatedText.animatedBuilder,
-            child: completeText,
-          );
+
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: _currentAnimatedText.animatedBuilder,
+      child: completeText,
+    );
   }
 
   bool get _isLast => _index == widget.animatedTexts.length - 1;
