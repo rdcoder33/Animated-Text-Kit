@@ -111,6 +111,8 @@ class AnimatedTextKit extends StatefulWidget {
   /// By default it is set to 3
   final int totalRepeatCount;
 
+  final double? animationProgress;
+
   const AnimatedTextKit({
     Key? key,
     required this.animatedTexts,
@@ -123,6 +125,7 @@ class AnimatedTextKit extends StatefulWidget {
     this.onFinished,
     this.isRepeatingAnimation = true,
     this.totalRepeatCount = 3,
+    this.animationProgress,
     this.repeatForever = false,
   })  : assert(animatedTexts.length > 0),
         assert(!isRepeatingAnimation || totalRepeatCount > 0 || repeatForever),
@@ -164,6 +167,11 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
   @override
   Widget build(BuildContext context) {
     final completeText = _currentAnimatedText.completeText(context);
+    if (widget.animationProgress != null) {
+      _controller.value = widget.animationProgress!;
+    } else {
+      _controller.value = 1;
+    }
     return _isCurrentlyPausing || !_controller.isAnimating
         ? completeText
         : AnimatedBuilder(
