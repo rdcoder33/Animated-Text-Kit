@@ -36,6 +36,7 @@ class TyperAnimatedText extends AnimatedText {
 
   @override
   void initAnimation(AnimationController controller) {
+    controller.value = 0.5;
     _typingText = CurveTween(
       curve: curve,
     ).animate(controller);
