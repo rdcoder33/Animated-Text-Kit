@@ -174,15 +174,19 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
   @override
   Widget build(BuildContext context) {
     final completeText = _currentAnimatedText.completeText(context);
-    if (widget.animationProgress != null) {
-      _controller.value = widget.animationProgress!;
-    } else {
-      _controller.value = 1;
-    }
+    // if (widget.animationProgress != null) {
+    //   _controller.value = widget.animationProgress!;
+    // } else {
+    //   _controller.value = 1;
+    // }
+    _controller
+      ..addStatusListener(_animationEndCallback)
+      ..animateTo(widget.animationProgress!);
+    print("controller animation ${_controller.value}");
     return _isCurrentlyPausing || !_controller.isAnimating
         ? completeText
         : AnimatedBuilder(
-            animation: _animation,
+            animation: _controller,
             builder: _currentAnimatedText.animatedBuilder,
             child: completeText,
           );
