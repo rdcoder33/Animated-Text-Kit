@@ -50,6 +50,10 @@ class TyperAnimatedText extends AnimatedText {
         (_typingText.value.clamp(0, 1) * textCharacters.length).round();
 
     assert(count <= textCharacters.length);
+    print("from typer:");
+    print(_typingText.value);
+    print(count);
+    print("----------");
     return textWidget(textCharacters.take(count).toString());
   }
 }
