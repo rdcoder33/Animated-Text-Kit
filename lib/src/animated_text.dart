@@ -175,8 +175,6 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
     } else {
       _controller.value = 1;
     }
-    print(animation);
-    print(_controller.value);
     return _isCurrentlyPausing || !_controller.isAnimating
         ? completeText
         : AnimatedBuilder(
@@ -231,8 +229,10 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
     _currentAnimatedText.initAnimation(_controller);
     _controller.addStatusListener(_animationEndCallback);
     _controller.addListener(() {
+      print("I am rebuilding");
       setState(() {});
     });
+    
   }
 
   void _setPause() {
@@ -250,6 +250,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
       _setPause();
       assert(null == _timer || !_timer!.isActive);
       _timer = Timer(widget.pause, _nextAnimation);
+      _controller.forward();
     }
   }
 
