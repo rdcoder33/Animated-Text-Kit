@@ -111,7 +111,6 @@ class AnimatedTextKit extends StatefulWidget {
   /// By default it is set to 3
   final int totalRepeatCount;
 
-
   const AnimatedTextKit({
     Key? key,
     required this.animatedTexts,
@@ -148,13 +147,11 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
   bool _isCurrentlyPausing = false;
 
   Timer? _timer;
- 
 
   @override
   void initState() {
     super.initState();
     _initAnimation();
-    
   }
 
   @override
@@ -172,7 +169,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
     // } else {
     //   _controller.value = 1;
     // }
-   
+
     return _isCurrentlyPausing || !_controller.isAnimating
         ? completeText
         : AnimatedBuilder(
@@ -226,9 +223,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
     _currentAnimatedText.initAnimation(_controller);
 
-    _controller
-      ..addStatusListener(_animationEndCallback)
-      ..forward();
+    _controller.addStatusListener(_animationEndCallback);
   }
 
   void _setPause() {

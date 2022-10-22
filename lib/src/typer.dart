@@ -40,6 +40,7 @@ class TyperAnimatedText extends AnimatedText {
     _typingText = CurveTween(
       curve: curve,
     ).animate(controller);
+    print(_typingText.value);
   }
 
   /// Widget showing partial text, up to [count] characters
