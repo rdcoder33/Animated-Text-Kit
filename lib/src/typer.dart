@@ -36,11 +36,9 @@ class TyperAnimatedText extends AnimatedText {
 
   @override
   void initAnimation(AnimationController controller) {
-    controller.value = 0.6;
     _typingText = CurveTween(
       curve: curve,
     ).animate(controller);
-    print(_typingText.value);
   }
 
   /// Widget showing partial text, up to [count] characters
