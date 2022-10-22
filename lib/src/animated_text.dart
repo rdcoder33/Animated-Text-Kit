@@ -151,9 +151,12 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
   Timer? _timer;
 
+  late Animation<double> animation;
+
   @override
   void initState() {
     super.initState();
+
     _initAnimation();
   }
 
@@ -172,10 +175,12 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
     } else {
       _controller.value = 1;
     }
+    print(animation);
+    print(_controller.value);
     return _isCurrentlyPausing || !_controller.isAnimating
         ? completeText
         : AnimatedBuilder(
-            animation: _controller,
+            animation: animation,
             builder: _currentAnimatedText.animatedBuilder,
             child: completeText,
           );
@@ -222,9 +227,8 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
       duration: _currentAnimatedText.duration,
       vsync: this,
     );
-
+    animation = Tween<double>(begin: 0, end: 1).animate(_controller);
     _currentAnimatedText.initAnimation(_controller);
-
     _controller.addStatusListener(_animationEndCallback);
     _controller.addListener(() {
       setState(() {});
