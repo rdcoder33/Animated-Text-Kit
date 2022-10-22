@@ -148,18 +148,13 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
   bool _isCurrentlyPausing = false;
 
   Timer? _timer;
-
-  late Animation<double> _animation;
-  late Tween<double> _tween;
+ 
 
   @override
   void initState() {
     super.initState();
     _initAnimation();
-    _animation = _tween.animate(_controller)
-      ..addListener(() {
-        setState(() {});
-      });
+    
   }
 
   @override
