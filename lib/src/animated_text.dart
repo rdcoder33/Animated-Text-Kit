@@ -156,9 +156,12 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
   Timer? _timer;
 
+  late Animation<double> animation;
+
   @override
   void initState() {
     super.initState();
+
     _initAnimation();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
           _controller.addListener(() {
@@ -269,6 +272,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
       _setPause();
       assert(null == _timer || !_timer!.isActive);
       _timer = Timer(widget.pause, _nextAnimation);
+      _controller.forward();
     }
   }
 
