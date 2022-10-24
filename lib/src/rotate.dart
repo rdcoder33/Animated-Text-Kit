@@ -100,7 +100,7 @@ class RotateAnimatedText extends AnimatedText {
   Widget animatedBuilder(BuildContext context, Widget? child) {
     final fontSize =
         textStyle?.fontSize ?? DefaultTextStyle.of(context).style.fontSize;
-
+    
     return SizedBox(
       height: transitionHeight ?? (fontSize! * 10 / 3),
       child: AlignTransition(

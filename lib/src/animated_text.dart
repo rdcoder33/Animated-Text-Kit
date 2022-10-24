@@ -191,13 +191,15 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 //             ),
 //     );
 
-    setControllerValue(widget.animationValue);
+    
 
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: _currentAnimatedText.animatedBuilder,
-      child: completeText,
-    );
+    return _isCurrentlyPausing || !_controller.isAnimating
+        ? completeText
+        : AnimatedBuilder(
+            animation: _controller,
+            builder: _currentAnimatedText.animatedBuilder,
+            child: completeText,
+          );
   }
 
   bool get _isLast => _index == widget.animatedTexts.length - 1;
@@ -241,6 +243,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
       duration: _currentAnimatedText.duration,
       vsync: this,
     );
+    setControllerValue(widget.animationValue);
     _currentAnimatedText.initAnimation(_controller);
 
     _controller.addStatusListener(_animationEndCallback);
