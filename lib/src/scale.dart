@@ -53,6 +53,10 @@ class ScaleAnimatedText extends AnimatedText {
         curve: const Interval(0.5, 1.0, curve: Curves.easeIn),
       ),
     );
+    controller.addListener(() {
+      print("controller value changes");
+      print("scaleIn: ${_scaleIn.value}");
+    });
   }
 
   @override

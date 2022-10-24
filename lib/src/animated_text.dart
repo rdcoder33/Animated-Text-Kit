@@ -194,8 +194,6 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 //             ),
 //     );
 
-    
-
     return _isCurrentlyPausing || !_controller.isAnimating
         ? completeText
         : AnimatedBuilder(
@@ -249,8 +247,9 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
     setControllerValue(widget.animationValue);
     _currentAnimatedText.initAnimation(_controller);
 
-    _controller.addStatusListener(_animationEndCallback);
-    // ..forward();
+    _controller
+      ..addStatusListener(_animationEndCallback)
+      ..forward();
   }
 
   void setControllerValue(double value) {

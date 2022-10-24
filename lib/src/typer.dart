@@ -34,9 +34,10 @@ class TyperAnimatedText extends AnimatedText {
   @override
   Duration get remaining => speed * (textCharacters.length - _typingText.value);
 
+  late AnimationController typerController;
+  
   @override
   void initAnimation(AnimationController controller) {
-    print("from typer init Animation: ${controller.value}");
     _typingText = CurveTween(
       curve: curve,
     ).animate(controller);
@@ -51,10 +52,6 @@ class TyperAnimatedText extends AnimatedText {
         (_typingText.value.clamp(0, 1) * textCharacters.length).round();
 
     assert(count <= textCharacters.length);
-    print("from typer:");
-    print(_typingText.value);
-    print(count);
-    print("----------");
     return textWidget(textCharacters.take(count).toString());
   }
 }
